@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>House Price Prediciton</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="bg-dark">
+    <div class="container">
+      <div class="row">
+        <div class="card" style="width: 100%; height: 100%;margin-top: 50px;">
+          <div class="card-header" style="text-align: center">
+            <h1>Welcome to Bengaluru House Price Prediciton</h1>
+          </div>
+          <div class="card-body style="margin:1rem">
+            <form method="post" accept-charset="utf-8">
+              <div class="row">
+                <div class="col-md-6 form-group" style="text-align: center">
+                  <label><b>Select the location</b></label>
+                  <select
+                    class="select-picker form-control"
+                    aria-label="Default select example"
+                    id="location"
+                    name="location"
+                    required
+                  >
+                    {%for location in locations%}
+                    <option value="{{location}}">{{location}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <div class="col-md-6 form-group" style="text-align: center">
+                  <label><b>Enter BHK</b></label>
+                 <input type="text" class="form-control" id="bhk" name="bhk" required/>
+                </div>
+                
+                <div class="col-md-6 form-group" style="text-align: center">
+                  <label><b>Enter Bathroom</b></label>
+                 <input type="text" class="form-control" id="bath" name="bath" required/>
+                </div>
+
+                <div class="col-md-6 form-group" style="text-align: center">
+                  <label><b>Total Square feet area</b></label>
+                  <input type="text" class="form-control" id="square_feet" name="square_feet" />
+                </div>
+                
+                <div class="d-grid gap-6 col-6 mx-auto" style="margin:1.5rem;">
+                  <button class="btn btn-primary" type="button" onclick="sendData()">Predict Price</button>
+                </div>
+              </div>
+            </form>
+            <br/>
+
+            <div class="col-md-12" style="text-align: center;">
+              <h3><span id="prediction"></span></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function form_handler(event){
+        event.preventDefault();
+
+      }
+
+      function sendData(){
+        document.querySelector('form').addEventListener("submit",form_handler)
+
+        var fd=new FormData(document.querySelector('form'))
+
+        var xhr=new XMLHttpRequest()
+
+        xhr.open('POST','/predict_home_price',true)
+        document.getElementById('prediction').innerHTML="Wait Predicitng Price ..."
+
+        xhr.onreadystatechange=function(){
+          if(xhr.readyState==XMLHttpRequest.DONE){
+            console.log("xhr.responseText",xhr,xhr.responseText[0])
+            document.getElementById('prediction').innerHTML="Prediciton: ₹"+xhr.responseText+"lakhs"
+          }
+        }
+        xhr.onload=function(){};
+        xhr.send(fd)
+      }
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
