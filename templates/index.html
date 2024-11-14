@@ -30,25 +30,30 @@
                     name="location"
                     required
                   >
-                    {%for location in locations%}
-                    <option value="{{location}}">{{location}}</option>
-                    {% endfor %}
+
+                    {% if locations %}
+                      {% for location in locations %}
+                        <option value="{{location}}">{{location}}</option>
+                      {% endfor %}
+                    {% else %}
+                      <option value="{{location}}">No locations available.</option>
+                    {% endif %}
                   </select>
                 </div>
 
                 <div class="col-md-6 form-group" style="text-align: center">
                   <label for="bhk"><b>Enter BHK</b></label>
-                 <input type="text" class="form-control" id="bhk" name="bhk" required/>
+                 <input type="number" class="form-control" id="bhk" name="bhk" required/>
                 </div>
                 
                 <div class="col-md-6 form-group" style="text-align: center">
                   <label for="bath"><b>Enter Bathroom</b></label>
-                 <input type="text" class="form-control" id="bath" name="bath" required/>
+                 <input type="number" class="form-control" id="bath" name="bath" required/>
                 </div>
 
                 <div class="col-md-6 form-group" style="text-align: center">
                   <label for="square_feet"><b>Total Square feet area</b></label>
-                  <input type="text" class="form-control" id="square_feet" name="square_feet" required/>
+                  <input type="number" class="form-control" id="square_feet" name="square_feet" required/>
                 </div>
                 
                 <div class="d-grid gap-6 col-6 mx-auto" style="margin:1.5rem;">
