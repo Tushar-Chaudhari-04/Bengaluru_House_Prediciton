@@ -18,16 +18,16 @@ def load_save_artifacts():
        global __model
        __model=pickle.load(file)
 
-   with open('columns.json','rb') as f1:
-      global __location
-      global __data_columns
-      __data_columns=json.load(f1)
-      print(f"__data_columns :: {__data_columns}")
-      if __data_columns and 'data' in __data_columns:
-         __location = __data_columns['data'][4:]  # Assign __location to be a slice of the 
-      else:
-         print("Error: __data_columns is empty or 'data' key is missing.")
-      # __data_columns=__location['data']
+   # with open('columns.json','rb') as f1:
+   #    global __location
+   #    global __data_columns
+   #    __data_columns=json.load(f1)
+   #    print(f"__data_columns :: {__data_columns}")
+   #    if __data_columns and 'data' in __data_columns:
+   #       __location = __data_columns['data'][4:]  # Assign __location to be a slice of the 
+   #    else:
+   #       print("Error: __data_columns is empty or 'data' key is missing.")
+   #    # __data_columns=__location['data']
 
 def get_estimate_price(bath,bhk,square_feet,location):
    
@@ -50,6 +50,21 @@ def get_estimate_price(bath,bhk,square_feet,location):
 
 @app.route('/')
 def index():
+   with open('columns.json','rb') as f1:
+      global __location
+      global __data_columns
+      __data_columns=json.load(f1)
+
+      if __data_columns and 'data' in __data_columns:
+         __location = __data_columns['data'][4:]  # Assign __location to be a slice of the 
+      else:
+         print("Error: __data_columns is empty or 'data' key is missing.")
+      # __data_columns=__location['data']
+
+   with open('banglore_home_prices_model.pickle','rb') as file:
+       global __model
+       __model=pickle.load(file)
+
    return render_template('index.html',locations=__location)
 
 @app.route('/predict_home_price',methods=['POST'])
@@ -67,6 +82,6 @@ def predict_home_price():
    return response
 
 if __name__ == '__main__':
-    load_save_artifacts()
+   #  load_save_artifacts()
     print("loading prediction...")
     app.run(debug=True)
