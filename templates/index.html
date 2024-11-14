@@ -37,18 +37,18 @@
                 </div>
 
                 <div class="col-md-6 form-group" style="text-align: center">
-                  <label><b>Enter BHK</b></label>
+                  <label for="bhk"><b>Enter BHK</b></label>
                  <input type="text" class="form-control" id="bhk" name="bhk" required/>
                 </div>
                 
                 <div class="col-md-6 form-group" style="text-align: center">
-                  <label><b>Enter Bathroom</b></label>
+                  <label for="bath"><b>Enter Bathroom</b></label>
                  <input type="text" class="form-control" id="bath" name="bath" required/>
                 </div>
 
                 <div class="col-md-6 form-group" style="text-align: center">
-                  <label><b>Total Square feet area</b></label>
-                  <input type="text" class="form-control" id="square_feet" name="square_feet" />
+                  <label for="square_feet"><b>Total Square feet area</b></label>
+                  <input type="text" class="form-control" id="square_feet" name="square_feet" required/>
                 </div>
                 
                 <div class="d-grid gap-6 col-6 mx-auto" style="margin:1.5rem;">
@@ -72,23 +72,44 @@
       }
 
       function sendData(){
-        document.querySelector('form').addEventListener("submit",form_handler)
+        try{
+          document.querySelector('form').addEventListener("submit",form_handler)
 
-        var fd=new FormData(document.querySelector('form'))
+          var fd=new FormData(document.querySelector('form'))
+          console.log("fd",fd)
 
-        var xhr=new XMLHttpRequest()
-
-        xhr.open('POST','/predict_home_price',true)
-        document.getElementById('prediction').innerHTML="Wait Predicitng Price ..."
-
-        xhr.onreadystatechange=function(){
-          if(xhr.readyState==XMLHttpRequest.DONE){
-            console.log("xhr.responseText",xhr,xhr.responseText[0])
-            document.getElementById('prediction').innerHTML="Prediciton: ₹"+xhr.responseText+"lakhs"
+          console.log(fd.has('location'))
+         
+          let isEmpty = true;
+          for (let [key, value] of fd.entries()) {
+            isEmpty = false;
+            break; // exit loop on first entry found
           }
+
+          var xhr=new XMLHttpRequest()
+
+          xhr.open('POST','/predict_home_price',true)
+          document.getElementById('prediction').innerHTML="Wait Predicitng Price ..."
+          console.log("isEmpty",isEmpty)
+          if(!isEmpty){
+            xhr.onreadystatechange=function(){
+            if(xhr.readyState==XMLHttpRequest.DONE){
+              console.log("xhr.responseText",xhr,xhr.responseText.estimated_price)
+              document.getElementById('prediction').innerHTML="Prediciton: ₹"+xhr.responseText+"lakhs"
+            }
+          }
+          xhr.onload=function(){};
+          xhr.send(fd)
+          }else{
+            document.getElementById('prediction').innerHTML="Please provide all fields..."
+          }
+         
+         
         }
-        xhr.onload=function(){};
-        xhr.send(fd)
+        catch(err){
+          document.getElementById('prediction').innerHTML="Internal Server Error \n Please provide all fields..."
+        }
+          
       }
     </script>
     <script

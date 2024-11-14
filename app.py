@@ -56,17 +56,13 @@ def predict_home_price():
    bhk=request.form['bhk']
    bath=request.form['bath']
 
-   response=jsonify({
-      'estimated_price':get_estimate_price(bath,bhk,total_sqft,location)
-   })
+   response=jsonify(
+      get_estimate_price(bath,bhk,total_sqft,location)
+   )
 
    response.headers.add('Access-Control-Allow-Origin','*')
    print("response",response)
    return response
 
 
-if __name__=="__main__":
-   load_save_artifacts()
-   print("loading prediction...")
-   app.run(debug=True,port=5000)
 
