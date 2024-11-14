@@ -66,5 +66,7 @@ def predict_home_price():
    response.headers.add('Access-Control-Allow-Origin','*')
    return response
 
-
-
+if __name__ == '__main__':
+    load_save_artifacts()
+    print("loading prediction...")
+    app.run(debug=True)
