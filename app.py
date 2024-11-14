@@ -22,7 +22,7 @@ def load_save_artifacts():
       global __location
       global __data_columns
       __data_columns=json.load(f1)
-
+      print(f"__data_columns :: {__data_columns}")
       if __data_columns and 'data' in __data_columns:
          __location = __data_columns['data'][4:]  # Assign __location to be a slice of the 
       else:
