@@ -3,5 +3,6 @@ numpy
 matplotlib
 seaborn
 scikit-learn
-Flask
+Flask==2.0.1
+Werkzeug==2.2.2
 ipykernel
