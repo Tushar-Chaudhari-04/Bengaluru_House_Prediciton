@@ -21,45 +21,46 @@
                 <div class="col-md-6 form-group" style="text-align: center">
                   <label class="form-label" for="location"><b>Select the location</b></label>
                   <select
-                    class="select-picker form-control"
-                    aria-label="Default select example"
+                    class="form-control"
                     id="location"
                     name="location"
                     required
+                    
                   >
-
+                  <option value="">Please select a location</option>
                     {% if locations %}
                       {% for location in locations %}
-                        <option value="{{location}}">{{location}}</option>
+                        <option value={{location}}>{{location}}</option>
                       {% endfor %}
                     {% else %}
                       <option>No locations available.</option>
                     {% endif %}
-                    
                   </select>
                   <span class="error-message" id="location-error"></span><br><br>
+                  
                 </div>
 
-                <div class="col-md-6">
-                  <label for="bhk" class="form-label">Enter No of Rooms</label>
-                  <input type="number" class="form-control" id="bhk"  name="bhk" required>
+                <div class="col-md-6 form-group">
+                  <label for="bhk" class="form-label style="text-align: center;><b>Enter No of Rooms</b></label>
+                  <input type="number" class="form-control" id="bhk"  name="bhk" required placeholder="Enter No of Rooms">
                   <span class="error-message" id="bhk-error"></span><br><br>
                 </div>
                 
                 <div class="col-md-6 form-group" style="text-align: center">
                   <label class="form-label" for="bath"><b>Enter Bathroom</b></label>
-                 <input type="number" class="form-control" id="bath" name="bath" required/>
+                 <input type="number" class="form-control" id="bath" name="bath" required placeholder="Enter no.of bathrooms"/>
                  <span class="error-message" id="bath-error"></span><br><br>
                 </div>
 
                 <div class="col-md-6 form-group" style="text-align: center">
                   <label class="form-label" for="square_feet"><b>Total Square feet area</b></label>
-                  <input type="number" class="form-control" id="square_feet" name="square_feet" required/>
+                  <input type="number" class="form-control" id="square_feet" name="square_feet" required
+                  placeholder="Total Square feet area"/>
                   <span class="error-message" id="square-feet-error"></span><br><br>
                 </div>
                 
                 <div class="d-grid gap-6 col-6 mx-auto" style="margin:1.5rem;">
-                  <button class="btn btn-primary" type="submit" onclick="validate()">Predict Price</button>
+                  <button class="btn btn-primary large" type="submit" onclick="validate()">Predict Price</button>
                 </div>
               </div>
             </form>

@@ -22,9 +22,10 @@
 .card-data {
   position: relative;
   z-index: 2; /* Places content above the overlay */
-  color: #ffffffe8;
+  color: hsla(54, 93%, 48%, 0.91);
   text-align: center;
   padding: 20px;
+
 }
 
 .error-message{
@@ -37,5 +38,30 @@
 }
 
 #prediction{
-  color: rgba(237, 210, 7, 0.917);
+  color: rgb(38, 236, 12);
+}
+
+input,select,.form-control{
+  background-color: rgba(255,255,255,0.8);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  /*color:rgb(255, 255, 255);
+  */font-size: large;
+  padding: 10px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+input::placeholder{
+  color:rgb(255, 255, 255);
+  font-size: large;
+  padding: 10px;
+}
+
+button{
+  padding: 10px;
+  font-weight: 700;
+  font-size: larger;
 }
