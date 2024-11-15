@@ -141,8 +141,7 @@
       if(!isEmpty){
         xhr.onreadystatechange=function(){
         if(xhr.readyState==XMLHttpRequest.DONE){
-          console.log("xhr.responseText",xhr,xhr.responseText.estimated_price)
-          document.getElementById('prediction').innerHTML="Prediciton: ₹"+xhr.responseText+"lakhs"
+          document.getElementById('prediction').innerHTML="Prediciton: ₹" + `${xhr.responseText.replace('"','').trim('"').replace('"','')}`
         }
       }
       xhr.onload=function(){};

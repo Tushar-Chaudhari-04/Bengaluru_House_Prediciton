@@ -18,6 +18,14 @@ def load_save_artifacts():
        global __model
        __model=pickle.load(file)
 
+def convertToCrore(price):
+   if(price>99):
+      crore_value=round(price/100,2)
+      return f"{crore_value} Crore"
+   else:
+      return f"{price} Lakh"
+
+
 def get_estimate_price(bath,bhk,square_feet,location):
    
    try:
@@ -32,7 +40,11 @@ def get_estimate_price(bath,bhk,square_feet,location):
    if loc_index>=0:
       x[loc_index]=1
 
-   return round(__model.predict([x])[0],2)
+   price_pred=round(__model.predict([x])[0],2)
+
+   string_price=convertToCrore(price_pred).replace('"','').strip('"')
+   print("string_price",string_price)
+   return string_price
 
 
 
